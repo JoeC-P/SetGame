@@ -11,6 +11,18 @@ import random
 random.seed(12839123)
 
 """
+counts and returns the size of a dictionary
+returns: size of a dictionary
+"""
+def size(dict):
+    size = 0             # init count
+    for key in dict:     # increments the count based off the keys in dict
+        size += 1
+    return size
+
+
+
+"""
 creates the dictionary representation of a Set deck
 precondition: nothing
 postcondition: a dictionary containing the 81 elements of a Set deck
@@ -43,35 +55,44 @@ def findDset(x,y):
         xy.append(2*(x[i]+y[i]) % 3)
     return xy[0], xy[1], xy[2], xy[3]
 
+
+
 """
 initializes the 12 Set cards of layed out for the game
 precondition: nothing
 postcondition: a dictionary with the 12 elements of the game
 returns: the dictionary
 """
-def initGame(setDeck):
+def initRound(setDeck):
     playCards = {} # holds the cards in play
     for i in range(1,13): # gets 12 cards from the deck of 82
-        while True:
+        while True:       # loop until you get a card from the deck that is not none
             x = random.randrange(1,82)
-            playCards[i] = setDeck[x]
-            setDeck[x] = None
-            if playCards[i] != None:
-                break
+            cardDealt = setDeck[x]                 # gets card from deck
+            if cardDealt != None:                  
+                playCards[cardDealt] = cardDealt   # creates a dictionary of the cards in play
+                                                   # key = card representation = value
+                setDeck[x] = None                  # remove the card from the deck dictionary
+                break                              # can leave loop
     return playCards
-    
-
-setDeck = createSetDeck()
-inPlay = initGame(setDeck)
-print(inPlay)
-for i in range(1,13):
-    for x in range(i+1,13):
-        if inPlay[i] == inPlay[x]:
-            print(inPlay[i],inPlay[x],False)
 
 
 
+"""
+plays a single round of set
+precondition: round is initialized and have a set of playCards
+postcondition: set is removed or more cards are added to the playCards dictionary
+returns: the dictionary of playCards
+"""
+def playRound(playCards):
+    #for key in playCards:
+    return
 
+
+deck = createSetDeck()
+playDeck = initRound(deck)
+print(playDeck)
+print(size(playDeck))
 
 
 
